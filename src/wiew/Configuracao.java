@@ -41,6 +41,8 @@ public final class Configuracao extends javax.swing.JFrame {
 
        ConfiguracaoBackp conf = new ConfiguracaoBackp();
       Main main = new Main();
+      
+      
     /**
      * Creates new form EmailBackup
      */
@@ -48,7 +50,7 @@ public final class Configuracao extends javax.swing.JFrame {
         initComponents();
         carregaDados();
         carregaDadosTela();
-
+main.setVisible(false);
        /// main.setVisible(true);
 final TrayIcon trayIcon; // declarando uma constante do tipo TrayIcon
 
@@ -172,7 +174,14 @@ final TrayIcon trayIcon; // declarando uma constante do tipo TrayIcon
 
     };
 
-   
+   ActionListener mostraexecutabackuplistener = new ActionListener() {
+
+        public void actionPerformed(ActionEvent e) {
+            new Thread(t1).start();
+
+        }
+
+    };
 
     //Criando um objeto PopupMenu
 
@@ -183,6 +192,8 @@ final TrayIcon trayIcon; // declarando uma constante do tipo TrayIcon
     MenuItem mostramsg = new MenuItem("Configuração");
     
     MenuItem mostrastatus = new MenuItem("Status Backup");
+    
+    MenuItem mostraexecutabackup = new MenuItem("Executar Backup");
 
     MenuItem defaultItem = new MenuItem("Sair");
     
@@ -193,12 +204,15 @@ final TrayIcon trayIcon; // declarando uma constante do tipo TrayIcon
     
 
     mostramsg.addActionListener(mostramsglistener);
+    
+    mostraexecutabackup.addActionListener(mostraexecutabackuplistener);
 
     defaultItem.addActionListener(exitListener);
 
     //Adicionando itens ao PopupMenu
 
     popup.add(mostramsg);
+    popup.add(mostraexecutabackup);
     popup.add(mostrastatus);
 
     //adiconando um separador
@@ -239,7 +253,7 @@ final TrayIcon trayIcon; // declarando uma constante do tipo TrayIcon
 
     popup.add(defaultItem);
     
-        trayIcon = new TrayIcon(image, "TrayIcon Demonstração", popup);
+        trayIcon = new TrayIcon(image, "Monitoramento ERPSaude", popup);
         
          long interval = 0;
         
@@ -284,7 +298,7 @@ long TEMPO = interval;
                 "Backup iniciado",
 
                 TrayIcon.MessageType.INFO);
-                                            
+                                           
                                             if("1".equals(conf.getStatusBackup())){
                                                 
                                                  main.dispose();
@@ -430,7 +444,7 @@ long TEMPO = interval;
                 conf.setSo((prop.getProperty("prop.server.so")));
                 conf.setUsuario((prop.getProperty("prop.server.usuario")));
                 conf.setArquivoLog((prop.getProperty("prop.server.arquivolog")));
-                
+               
                 
                 conf.setEmailPorta((prop.getProperty("prop.server.emailporta")));
                 conf.setEmailRemetente((prop.getProperty("prop.server.emailremetente")));
@@ -444,6 +458,23 @@ long TEMPO = interval;
     
 
    }
+   
+   private  Runnable t1 = new Runnable() {
+        public void run() {
+            try{
+                main.dispose();
+                main.read(new File(conf.getArquivoLog()));
+                main.setVisible(true);
+                BackupBean bb = new BackupBean();
+                bb.backupDataWithOutDatabase(conf);
+                main.dispose();
+                main.read(new File(conf.getArquivoLog()));
+                main.setVisible(true);
+                 Thread.currentThread().interrupt();
+            } catch (Exception e){}
+ 
+        }
+    };
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -466,13 +497,13 @@ long TEMPO = interval;
         jLabel4 = new javax.swing.JLabel();
         tf_smtp = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        tf_email_senha = new javax.swing.JTextField();
         tf_host = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         tf_emal_remetente = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         tf_emal_mesagem = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        tf_email_senha = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -518,7 +549,7 @@ long TEMPO = interval;
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(tf_emal, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -546,8 +577,6 @@ long TEMPO = interval;
 
         jLabel5.setText("SMTP");
 
-        tf_email_senha.setText("jTextField1");
-
         tf_host.setText("jTextField1");
 
         jLabel6.setText("Host");
@@ -559,6 +588,8 @@ long TEMPO = interval;
         tf_emal_mesagem.setText("jTextField1");
 
         jLabel8.setText("Email Mensagem");
+
+        tf_email_senha.setText("jPasswordField1");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -592,9 +623,9 @@ long TEMPO = interval;
                 .addComponent(tf_emal_remetente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tf_email_senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tf_em_porta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -614,7 +645,7 @@ long TEMPO = interval;
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tf_emal_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -929,7 +960,7 @@ long TEMPO = interval;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField tf_bitesso;
     private javax.swing.JTextField tf_em_porta;
-    private javax.swing.JTextField tf_email_senha;
+    private javax.swing.JPasswordField tf_email_senha;
     private javax.swing.JTextField tf_emal;
     private javax.swing.JTextField tf_emal_mesagem;
     private javax.swing.JTextField tf_emal_remetente;

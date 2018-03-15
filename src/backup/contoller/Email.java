@@ -19,26 +19,49 @@ static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Email.cla
  
  
 
-  String to = conf.getEmailRemetente();
-  String from = conf.getEmailDestinatario();
-  String host = conf.getEmailHost();
+  String to = conf.getEmailDestinatario().trim();
+  String from = conf.getEmailRemetente().trim();
+  String host = conf.getEmailHost().trim();
   String filename = file;
   String msgText1 = conf.getMensagem();
   String subject = conf.getTitulo();
-  
+  log.info("TO: "+conf.getEmailRemetente().trim());
+  log.info("FROM: "+conf.getEmailDestinatario().trim());
+  log.info("HOST: "+conf.getEmailHost().trim());
+  log.info("FILE: "+file);
   // cria algumas propriedades e obtem uma sessao padrao
   Properties props = System.getProperties();
             props.put("mail.smtp.host", host);
-            props.put("mail.smtp.socketFactory.port", conf.getEmailPorta());
+            props.put("mail.smtp.socketFactory.port", conf.getEmailPorta().trim());
             props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
             props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.port", conf.getEmailPorta());
-  
+            props.put("mail.smtp.port", conf.getEmailPorta().trim());
+            props.put("mail.smtp.starttls.enable", "true");  
+            
+            //# obs a porta pode ser a 587 ou a 465 do gmail
+    //props.put("mail.smtp.auth", "true");
+    
+   // props.put("mail.debug", "true");
+   // props.put("mail.smtp.debug", "true");
+   // props.put("mail.mime.charset", "ISO-8859-1");
+    //    props.put ("mail.smtp.starttls.enable", "true");
+     //   props.put ("mail.smtp.socketFactory.fallback", "false");
+     //   props.put ("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+            
+     /*Servidor	smtpHostMail	smtpPortMail	smtpStarttls
+Gmail	smtp.gmail.com	587	true
+Bol	smtps.bol.com.br	587	true
+Ibest	smtp.ibest.com.br	587	true
+IG	smtp.ig.com.br	587	true
+Hotmail	smtp.live.com	25	true
+     */
+            
+    log.info("PORTA: "+conf.getEmailPorta());
          Session session = Session.getDefaultInstance(props,
                         new javax.mail.Authenticator() {
                              protected PasswordAuthentication getPasswordAuthentication() 
                              {
-                                   return new PasswordAuthentication(to, conf.getEmailSenha());
+                                   return new PasswordAuthentication(from, conf.getEmailSenha().trim());
                              }
                         });
 

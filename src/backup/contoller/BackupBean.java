@@ -44,7 +44,7 @@ Process p = null;
  
     DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 Date date = new Date();
-String filepath = "backup(without_DB)-" + conf.getNomeBanco() + "-" + conf.getHost() + "-(" + dateFormat.format(date) + ").sql";
+String filepath = "backup_"+ conf.getNomeBanco()+"_" + conf.getNomeBanco() + "_" + conf.getHost() + "_" + dateFormat.format(date) + ".sql";
 String arquivo =conf.getNomeBanco() + dateFormat.format(date) + ".sql";
 
 
@@ -80,6 +80,7 @@ linhas.add("Fim da Compactação ");
 log.info("Inicia envio de email.......................... ");
 linhas.add("Inicia envio de email.......................... ");
 Email email= new Email();
+linhas.add("enviando email do arquivo..............: "+filepath+".zip");
 log.info("enviando email do arquivo..............: "+filepath+".zip");
 email.enviarEmailComArquivo(conf.getLocalGravar()+filepath+".zip",conf);
 log.info("Fim do envio de email ");

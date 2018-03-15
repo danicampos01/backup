@@ -97,7 +97,7 @@
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <Component id="tf_emal" alignment="0" min="-2" pref="277" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="15" max="32767" attributes="0"/>
+                          <EmptySpace pref="23" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -154,7 +154,7 @@
                               <Component id="tf_host" alignment="0" max="32767" attributes="0"/>
                               <Component id="tf_smtp" alignment="0" max="32767" attributes="0"/>
                               <Component id="tf_em_porta" alignment="0" max="32767" attributes="0"/>
-                              <Component id="tf_email_senha" alignment="0" max="32767" attributes="0"/>
+                              <Component id="tf_email_senha" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace pref="29" max="32767" attributes="0"/>
                       </Group>
@@ -169,9 +169,9 @@
                           <Component id="tf_emal_remetente" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="tf_email_senha" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="tf_em_porta" min="-2" max="-2" attributes="0"/>
@@ -191,7 +191,7 @@
                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="tf_emal_titulo" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="141" max="32767" attributes="0"/>
+                          <EmptySpace pref="156" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -232,11 +232,6 @@
                     <Property name="text" type="java.lang.String" value="SMTP"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="tf_email_senha">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="jTextField1"/>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JTextField" name="tf_host">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="jTextField1"/>
@@ -265,6 +260,11 @@
                 <Component class="javax.swing.JLabel" name="jLabel8">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Email Mensagem"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JPasswordField" name="tf_email_senha">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="jPasswordField1"/>
                   </Properties>
                 </Component>
               </SubComponents>
