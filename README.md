@@ -1,4 +1,4 @@
 # Backup
-Realiza o backup
-Compacta
-enviar ao email
+Realiza o backup,
+Compacta e 
+enviar ao email- Netbens/mysql/java swing.
